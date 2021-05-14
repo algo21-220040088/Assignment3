@@ -14,5 +14,11 @@ We take July 1, 2016 to May 1, 2018 as the back test interval, and calculate all
 ![Image text](https://github.com/algo21-220040088/Assignment3/blob/main/result/pictures/iv_diff.png)
 
 ### step 2: back testing
-According to the data obtained in the step 1, we can get all the opening and closing signals. If you sell the deferred month contract and buy the nearby month contract, it is marked as state=1. If you sell the nearby month contract and buy the deferred month contract, it is marked as state=-1. The result is shown in the figure below.
+According to the data obtained in the step 1, we can get all the opening and closing signals. If you sell the deferred month contract and buy the nearby month contract, it is marked as state=1. If you sell the nearby month contract and buy the deferred month contract, it is marked as state=-1. The state = 0 means no transcation. The states is shown in the figure below.
 ![Image text](https://github.com/algo21-220040088/Assignment3/blob/main/result/pictures/state.png)
+
+We regard one opening a position and one closing a position as a complete transaction, and calculate the return of each transaction. The return is shown in the figure below.
+![Image text](https://github.com/algo21-220040088/Assignment3/blob/main/result/pictures/return.png)
+
+By summing up the returns each time, we can get the change of cumulative returns over time. The cumulative returns is shown in the figure below.
+![Image text](https://github.com/algo21-220040088/Assignment3/blob/main/result/pictures/balance.png)
