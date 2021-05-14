@@ -9,3 +9,10 @@ If iv_diff > mean+2*std, which means that the implied volatility of far month co
 if iv_diff < mean-2*std, do the opposite.
 Above mentioned is the opening signal, below is the closing signal.
 If we open a position with iv_diff > mean+2*std, then the signal of closing a pisition is iv_diff < mean. If we open a position with iv_diff < mean+2*std, then the signal of closing a pisition is iv_diff > mean.That is to say, the requirements of opening the position will be more strict than closing the position.
+
+We take July 1, 2016 to May 1, 2018 as the back test interval, and calculate all iv_diff. Then for each trading day, we use the IV of the 20 trading days before the trading day to calculate the mean and variance as the basis for the judgment of opening a position or closing a positions.The results are shown in the following figure.
+![Image text](https://github.com/algo21-220040088/Assignment3/blob/main/result/pictures/iv_diff.png)
+
+### step 2: back testing
+According to the data obtained in the step 1, we can get all the opening and closing signals. If you sell the deferred month contract and buy the nearby month contract, it is marked as state=1. If you sell the nearby month contract and buy the deferred month contract, it is marked as state=-1. The result is shown in the figure below.
+![Image text](https://github.com/algo21-220040088/Assignment3/blob/main/result/pictures/state.png)
