@@ -22,3 +22,6 @@ We regard one opening a position and one closing a position as a complete transa
 
 By summing up the returns each time, we can get the change of cumulative returns over time. The cumulative returns is shown in the figure below.
 ![Image text](https://github.com/algo21-220040088/Assignment3/blob/main/result/pictures/balance.png)
+
+We can store the information of each transaction in the following CSV document.
+![Image text](https://github.com/algo21-220040088/Assignment3/blob/main/result/data/position.jpg)
