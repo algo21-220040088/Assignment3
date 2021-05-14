@@ -11,7 +11,7 @@ wind_id_database = {'510050.SH': 'OPTION_LOCAL', '000300.SH': 'OPTION_LOCAL_0003
                     '159919.SH': 'OPTION_LOCAL_159919', '510300.SH': 'OPTION_LOCAL_510300'}
 
 
-def calc_v2_v1(wind_id='510050.SH', start_dt=20200102, end_dt=20200701):
+def calc_v2_v1(wind_id='510050.SH', start_dt=20160701, end_dt=20160801):
     # 利率
     R = 0.02
 
@@ -19,7 +19,7 @@ def calc_v2_v1(wind_id='510050.SH', start_dt=20200102, end_dt=20200701):
     option_string=wind_id_database[wind_id]
 
     # 连接.db文件
-    my_db = sqlite3.connect(r'D:\pc\Desktop\Algo_Trading\Assignment2\data\raw\option.db')
+    my_db = sqlite3.connect(r'D:\pc\Desktop\Algo_Trading\Assignment3\data\raw\option.db')
 
     # 对数据库进行操作，取出所需数据
     c = my_db.cursor()
@@ -97,7 +97,7 @@ def calc_v2_v1(wind_id='510050.SH', start_dt=20200102, end_dt=20200701):
                 continue
 
         # 根据交易日和第一个到期日选出执行所有价格K及对应的期权价格
-        select_part = "SELECT K,SETTLE,CALL_PUT,WIND_ID,CONTRACT_MULTIPLIER"
+        select_part = "SELECT K,close,CALL_PUT,WIND_ID,CONTRACT_MULTIPLIER"
         from_part = "FROM " + option_string + ""
         condition_part = 'WHERE TRADE_DT= {x} AND OPTION_ENDTRADE={y}' \
             .format(x=trade_date, y=option_end_date_1)
@@ -121,7 +121,7 @@ def calc_v2_v1(wind_id='510050.SH', start_dt=20200102, end_dt=20200701):
         contract_multiplier_1 = float(option_1_information_array[2*k, 4])
 
         # 根据交易日和第二个到期日选出执行所有价格K及对应的期权价格
-        select_part = "SELECT K,SETTLE,CALL_PUT,WIND_ID,CONTRACT_MULTIPLIER"
+        select_part = "SELECT K,close,CALL_PUT,WIND_ID,CONTRACT_MULTIPLIER"
         from_part = "FROM " + option_string + ""
         condition_part = 'WHERE TRADE_DT= {x} AND OPTION_ENDTRADE={y}' \
             .format(x=trade_date, y=option_end_date_2)
@@ -149,10 +149,10 @@ def calc_v2_v1(wind_id='510050.SH', start_dt=20200102, end_dt=20200701):
         volatility_1 = call_implied_vol(S0, K, T1, price_1, r=0.02)
         volatility_2 = call_implied_vol(S0, K, T2, price_2, r=0.02)
 
-        # 若隐含波动率等于0或者等于1，则终止该次循环，当天的数据不计入结果
-        if volatility_1 < 0.00001 or volatility_2 < 0.00001 or 1-volatility_2 < 0.00001 or 1-volatility_1 < 0.00001:
-            print(trade_date)
-            continue
+        # # 若隐含波动率等于0或者等于1，则终止该次循环，当天的数据不计入结果
+        # if volatility_1 < 0.00001 or volatility_2 < 0.00001 or 1-volatility_2 < 0.00001 or 1-volatility_1 < 0.00001:
+        #     print(trade_date)
+        #     continue
         trade_date_count.append(parse(str(trade_date)))
         trade_date_int_count.append(trade_date)
         volatility_1_all.append(volatility_1)
@@ -213,7 +213,7 @@ def calc_v2_v1(wind_id='510050.SH', start_dt=20200102, end_dt=20200701):
 
 
 if __name__=="__main__":
-    volatility = calc_v2_v1('510050.SH', 20200102, 20200701)
+    volatility = calc_v2_v1('510050.SH', 20190201, 20190701)
     volatility.to_csv(r'D:\pc\Desktop\Algo_Trading\Assignment3\result\data\volatility.csv')
 
 
